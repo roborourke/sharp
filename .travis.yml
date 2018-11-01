@@ -1,3 +1,5 @@
+env:
+  - SHARP_DIST_BASE_URL="https://github.com/lovell/sharp/files/2527285/"
 matrix:
   include:
     - name: "Linux (glibc) - Node 6"
