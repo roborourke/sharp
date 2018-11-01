@@ -355,4 +355,12 @@ namespace sharp {
       return image.linear(a, b);
     }
   }
+
+  /*
+   * Map LUT
+   */
+  VImage MapLut(VImage image, VImage lut) {
+    return image.maplut(lut);
+  }
+
 }  // namespace sharp

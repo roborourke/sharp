@@ -677,6 +677,14 @@ class PipelineWorker : public Nan::AsyncWorker {
         }
       }
 
+      // Map LUT
+      if (baton->withLut) {
+        vips::VImage lut;
+        ImageType lutImageType;
+        std::tie(lut, lutImageType) = sharp::OpenInput(baton->lut, baton->accessMethod);
+        sharp::MapLut(image, lut);
+      }
+
       // Override EXIF Orientation tag
       if (baton->withMetadata && baton->withMetadataOrientation != -1) {
         sharp::SetExifOrientation(image, baton->withMetadataOrientation);

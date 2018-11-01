@@ -138,6 +138,8 @@ struct PipelineBaton {
   int extractChannel;
   bool removeAlpha;
   VipsInterpretation colourspace;
+  bool withLut;
+  sharp::InputDescriptor *lut;
   int tileSize;
   int tileOverlap;
   VipsForeignDzContainer tileContainer;
@@ -228,6 +230,8 @@ struct PipelineBaton {
     extractChannel(-1),
     removeAlpha(false),
     colourspace(VIPS_INTERPRETATION_LAST),
+    withLut(false),
+    lut(nullptr),
     tileSize(256),
     tileOverlap(0),
     tileContainer(VIPS_FOREIGN_DZ_CONTAINER_FS),

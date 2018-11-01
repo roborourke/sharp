@@ -107,6 +107,11 @@ namespace sharp {
    */
   VImage Linear(VImage image, double const a, double const b);
 
+  /*
+   * Map look up table
+   */
+  VImage MapLut(VImage image, VImage lut);
+
 }  // namespace sharp
 
 #endif  // SRC_OPERATIONS_H_
