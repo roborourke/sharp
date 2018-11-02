@@ -138,6 +138,7 @@ struct PipelineBaton {
   int extractChannel;
   bool removeAlpha;
   VipsInterpretation colourspace;
+  std::string iccTransformPath;
   int tileSize;
   int tileOverlap;
   VipsForeignDzContainer tileContainer;
@@ -228,6 +229,7 @@ struct PipelineBaton {
     extractChannel(-1),
     removeAlpha(false),
     colourspace(VIPS_INTERPRETATION_LAST),
+    iccTransformPath(""),
     tileSize(256),
     tileOverlap(0),
     tileContainer(VIPS_FOREIGN_DZ_CONTAINER_FS),

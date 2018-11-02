@@ -677,6 +677,15 @@ class PipelineWorker : public Nan::AsyncWorker {
         }
       }
 
+      // Apply additional icc profile
+      if (baton->iccTransformPath != "") {
+        image = image.icc_transform(
+          const_cast<char*>(baton->iccTransformPath.data()),
+          VImage::option()
+          // ->set("embedded", TRUE)
+          ->set("intent", VIPS_INTENT_PERCEPTUAL));
+      }
+
       // Override EXIF Orientation tag
       if (baton->withMetadata && baton->withMetadataOrientation != -1) {
         sharp::SetExifOrientation(image, baton->withMetadataOrientation);
