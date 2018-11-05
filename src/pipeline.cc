@@ -677,6 +677,15 @@ class PipelineWorker : public Nan::AsyncWorker {
         }
       }
 
+      // Apply additional icc profile
+      if (!baton->iccTransformPath.empty()) {
+        image = image.icc_transform(
+          const_cast<char*>(baton->iccTransformPath.data()),
+          VImage::option()
+          ->set("intent", VIPS_INTENT_PERCEPTUAL)
+          ->set("input_profile", const_cast<char*>(profileMap[image.interpretation()].data())));
+      }
+
       // Override EXIF Orientation tag
       if (baton->withMetadata && baton->withMetadataOrientation != -1) {
         sharp::SetExifOrientation(image, baton->withMetadataOrientation);
@@ -1120,6 +1129,7 @@ NAN_METHOD(pipeline) {
 
   // ICC profile to use when input CMYK image has no embedded profile
   baton->iccProfilePath = AttrAsStr(options, "iccProfilePath");
+  baton->iccTransformPath = AttrAsStr(options, "iccTransformPath");
   baton->accessMethod = AttrTo<bool>(options, "sequentialRead") ?
     VIPS_ACCESS_SEQUENTIAL : VIPS_ACCESS_RANDOM;
   // Limit input images to a given number of pixels, where pixels = width * height
