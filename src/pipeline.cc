@@ -683,7 +683,7 @@ class PipelineWorker : public Nan::AsyncWorker {
           const_cast<char*>(baton->iccTransformPath.data()),
           VImage::option()
           ->set("intent", VIPS_INTENT_PERCEPTUAL)
-          ->set("input_profile", const_cast<char*>(profileMap[image.interpretation()].data())));
+          ->set("input_profile", const_cast<char*>(profileMap[VIPS_INTERPRETATION_sRGB].data())));
       }
 
       // Override EXIF Orientation tag
